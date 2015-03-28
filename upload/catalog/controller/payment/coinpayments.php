@@ -5,6 +5,13 @@ class ControllerPaymentCoinpayments extends Controller {
 		if ($code == 'DOG') { return 'DOGE'; }
 		if ($code == 'MNT') { return 'MINT'; }
 		if ($code == 'NBL') { return 'NOBL'; }
+		if ($code == 'DAS') { return 'DASH'; }
+		if ($code == 'CLK') { return 'CLOAK'; }
+		if ($code == 'HTM') { return 'HTML5'; }
+		if ($code == 'HYP') { return 'HYPER'; }
+		if ($code == 'OPL') { return 'OPAL'; }
+		if ($code == 'SRT') { return 'START'; }
+		if ($code == 'ZEI') { return 'ZEIT'; }
 		return $code;
 	}
 	
