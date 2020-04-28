@@ -4,7 +4,7 @@
     </div>
 {% else %}
 
-    <form id="coinpayments_submit" name="coinpayments_submit" action="{{ action }}" method="GET">
+    <form id="payment_coinpayments_submit" name="payment_coinpayments_submit" action="{{ action }}" method="GET">
         {% for key, value in form_params %}
             <input type="hidden" name="{{ key }}" value="{{ value }}"/>
         {% endfor %}
@@ -16,7 +16,7 @@
     </div>
     <script type="text/javascript"><!--
         $('#button-confirm').bind('click', function () {
-            $('#coinpayments_submit').submit();
+            $('#payment_coinpayments_submit').submit();
         });
         //--></script>
 

@@ -45,8 +45,8 @@
                             {{ entry_client_id }}
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" name="coinpayments_client_id" id="input-client-id"
-                                   value="{{ coinpayments_client_id }}" placeholder=""
+                            <input type="text" name="payment_coinpayments_client_id" id="input-client-id"
+                                   value="{{ payment_coinpayments_client_id }}" placeholder=""
                                    class="form-control"/>
                             <small class="form-text text-muted">{{ help_client_id }}</small>
 
@@ -65,8 +65,8 @@
                             {{ entry_webhooks }}
                         </label>
                         <div class="col-sm-10">
-                            <select name="coinpayments_webhooks" id="input-webhooks" class="form-control">
-                                {% if coinpayments_webhooks %}
+                            <select name="payment_coinpayments_webhooks" id="input-webhooks" class="form-control">
+                                {% if payment_coinpayments_webhooks %}
                                     <option value="1" selected="selected">{{ text_enabled }}</option>
                                     <option value="0">{{ text_disabled }}</option>
                                 {% else %}
@@ -79,20 +79,20 @@
                     </div>
 
                     <div class="form-group row" id="input-client-secret-wrap"
-                         {% if coinpayments_webhooks != true %}style="display: none;"{% endif %}>
+                         {% if payment_coinpayments_webhooks != true %}style="display: none;"{% endif %}>
                         <label class="col-sm-2 control-label col-form-label" for="input-client-secret">
                             {{ entry_client_secret }}
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" name="coinpayments_client_secret" id="input-client-secret"
-                                   value="{{ coinpayments_client_secret }}" placeholder=""
+                            <input type="text" name="payment_coinpayments_client_secret" id="input-client-secret"
+                                   value="{{ payment_coinpayments_client_secret }}" placeholder=""
                                    class="form-control"/>
                             <small class="form-text text-muted">{{ help_client_secret }}</small>
 
                             {% if error_client_secret %}
                                 <div class="text-danger">{{ error_client_secret }}</div>
                             {% endif %}
-                            {% if coinpayments_webhooks and error_invalid_credentials %}
+                            {% if payment_coinpayments_webhooks and error_invalid_credentials %}
                                 <div class="text-danger">{{ error_invalid_credentials }}</div>
                             {% endif %}
                         </div>
@@ -115,10 +115,10 @@
                             {{ entry_cancelled_status }}
                         </label>
                         <div class="col-sm-10">
-                            <select name="coinpayments_cancelled_status" class="form-control"
+                            <select name="payment_coinpayments_cancelled_status" class="form-control"
                                     id="input-cancelled-status">
                                 {% for order_status in order_statuses %}
-                                    {% if order_status.order_status_id == coinpayments_cancelled_status %}
+                                    {% if order_status.order_status_id == payment_coinpayments_cancelled_status %}
                                         <option value="{{ order_status.order_status_id }}"
                                                 selected="selected">{{ order_status.name }}</option>
                                     {% else %}
@@ -136,10 +136,10 @@
                             {{ entry_completed_status }}
                         </label>
                         <div class="col-sm-10">
-                            <select name="coinpayments_completed_status" class="form-control"
+                            <select name="payment_coinpayments_completed_status" class="form-control"
                                     id="input-completed-status">
                                 {% for order_status in order_statuses %}
-                                    {% if order_status.order_status_id == coinpayments_completed_status %}
+                                    {% if order_status.order_status_id == payment_coinpayments_completed_status %}
                                         <option value="{{ order_status.order_status_id }}"
                                                 selected="selected">{{ order_status.name }}</option>
                                     {% else %}
@@ -157,10 +157,10 @@
                             {{ entry_pending_status }}
                         </label>
                         <div class="col-sm-10">
-                            <select name="coinpayments_pending_status" class="form-control"
+                            <select name="payment_coinpayments_pending_status" class="form-control"
                                     id="input-pending-status">
                                 {% for order_status in order_statuses %}
-                                    {% if order_status.order_status_id == coinpayments_pending_status %}
+                                    {% if order_status.order_status_id == payment_coinpayments_pending_status %}
                                         <option value="{{ order_status.order_status_id }}"
                                                 selected="selected">{{ order_status.name }}</option>
                                     {% else %}
@@ -178,11 +178,11 @@
                             {{ entry_geo_zone }}
                         </label>
                         <div class="col-sm-10">
-                            <select name="coinpayments_geo_zone_id" id="input-geo-zone"
+                            <select name="payment_coinpayments_geo_zone_id" id="input-geo-zone"
                                     class="form-control">
                                 <option value="0">{{ text_all_zones }}</option>
                                 {% for geo_zone in geo_zones %}
-                                    {% if geo_zone.geo_zone_id == coinpayments_geo_zone_id %}
+                                    {% if geo_zone.geo_zone_id == payment_coinpayments_geo_zone_id %}
                                         <option value="{{ geo_zone.geo_zone_id }}"
                                                 selected="selected">{{ geo_zone.name }}</option>
                                     {% else %}
@@ -197,8 +197,8 @@
                             {{ entry_sort_order }}
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" name="coinpayments_sort_order"
-                                   value="{{ coinpayments_sort_order }}"
+                            <input type="text" name="payment_coinpayments_sort_order"
+                                   value="{{ payment_coinpayments_sort_order }}"
                                    placeholder="{{ entry_sort_order }}"
                                    id="input-sort-order" class="form-control"/>
                             <small class="form-text text-muted">{{ help_sort_order }}</small>
@@ -209,8 +209,8 @@
                             {{ entry_status }}
                         </label>
                         <div class="col-sm-10">
-                            <select name="coinpayments_status" id="input-status" class="form-control">
-                                {% if coinpayments_status %}
+                            <select name="payment_coinpayments_status" id="input-status" class="form-control">
+                                {% if payment_coinpayments_status %}
                                     <option value="1" selected="selected">{{ text_enabled }}</option>
                                     <option value="0">{{ text_disabled }}</option>
                                 {% else %}

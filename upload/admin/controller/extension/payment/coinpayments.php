@@ -38,7 +38,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->model_setting_setting->editSetting('coinpayments', $this->request->post);
-            $this->session->data['success'] = $this->language->get('text_success') . " / status: " . ($this->request->post['coinpayments_status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'));
+            $this->session->data['success'] = $this->language->get('text_success') . " / status: " . ($this->request->post['payment_coinpayments_status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'));
             $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
         }
 
@@ -86,22 +86,22 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             'href' => $this->url->link('extension/payment/coinpayments', 'user_token=' . $this->session->data['user_token'], 'SSL')
         );
 
-        $data['coinpayments_client_id'] = (isset($this->request->post['coinpayments_client_id'])) ? $this->request->post['coinpayments_client_id'] : $this->config->get('coinpayments_client_id');
-        $data['coinpayments_client_secret'] = (isset($this->request->post['coinpayments_client_secret'])) ? $this->request->post['coinpayments_client_secret'] : $this->config->get('coinpayments_client_secret');
-        $data['coinpayments_webhooks'] = (isset($this->request->post['coinpayments_webhooks'])) ? $this->request->post['coinpayments_webhooks'] : $this->config->get('coinpayments_webhooks');
+        $data['payment_coinpayments_client_id'] = (isset($this->request->post['payment_coinpayments_client_id'])) ? $this->request->post['payment_coinpayments_client_id'] : $this->config->get('payment_coinpayments_client_id');
+        $data['payment_coinpayments_client_secret'] = (isset($this->request->post['payment_coinpayments_client_secret'])) ? $this->request->post['payment_coinpayments_client_secret'] : $this->config->get('payment_coinpayments_client_secret');
+        $data['payment_coinpayments_webhooks'] = (isset($this->request->post['payment_coinpayments_webhooks'])) ? $this->request->post['payment_coinpayments_webhooks'] : $this->config->get('payment_coinpayments_webhooks');
 
         $this->load->model('localisation/geo_zone');
         $data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
-        $data['coinpayments_geo_zone_id'] = (isset($this->request->post['coinpayments_geo_zone_id'])) ? $this->request->post['coinpayments_geo_zone_id'] : $this->config->get('coinpayments_geo_zone_id');
-        $data['coinpayments_sort_order'] = (isset($this->request->post['coinpayments_sort_order'])) ? $this->request->post['coinpayments_sort_order'] : $this->config->get('coinpayments_sort_order');
-        $data['coinpayments_status'] = (isset($this->request->post['coinpayments_status'])) ? $this->request->post['coinpayments_status'] : $this->config->get('coinpayments_status');
+        $data['payment_coinpayments_geo_zone_id'] = (isset($this->request->post['payment_coinpayments_geo_zone_id'])) ? $this->request->post['payment_coinpayments_geo_zone_id'] : $this->config->get('payment_coinpayments_geo_zone_id');
+        $data['payment_coinpayments_sort_order'] = (isset($this->request->post['payment_coinpayments_sort_order'])) ? $this->request->post['payment_coinpayments_sort_order'] : $this->config->get('payment_coinpayments_sort_order');
+        $data['payment_coinpayments_status'] = (isset($this->request->post['payment_coinpayments_status'])) ? $this->request->post['payment_coinpayments_status'] : $this->config->get('payment_coinpayments_status');
 
         // #ORDER STATUSES
         $this->load->model('localisation/order_status');
         $data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
-        $data['coinpayments_cancelled_status'] = (isset($this->request->post['coinpayments_cancelled_status'])) ? $this->request->post['coinpayments_cancelled_status'] : $this->config->get('coinpayments_cancelled_status');
-        $data['coinpayments_completed_status'] = (isset($this->request->post['coinpayments_completed_status'])) ? $this->request->post['coinpayments_completed_status'] : $this->config->get('coinpayments_completed_status');
-        $data['coinpayments_pending_status'] = (isset($this->request->post['coinpayments_pending_status'])) ? $this->request->post['coinpayments_pending_status'] : $this->config->get('coinpayments_pending_status');
+        $data['payment_coinpayments_cancelled_status'] = (isset($this->request->post['payment_coinpayments_cancelled_status'])) ? $this->request->post['payment_coinpayments_cancelled_status'] : $this->config->get('payment_coinpayments_cancelled_status');
+        $data['payment_coinpayments_completed_status'] = (isset($this->request->post['payment_coinpayments_completed_status'])) ? $this->request->post['payment_coinpayments_completed_status'] : $this->config->get('payment_coinpayments_completed_status');
+        $data['payment_coinpayments_pending_status'] = (isset($this->request->post['payment_coinpayments_pending_status'])) ? $this->request->post['payment_coinpayments_pending_status'] : $this->config->get('payment_coinpayments_pending_status');
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -169,14 +169,14 @@ class ControllerExtensionPaymentCoinpayments extends Controller
 
         $this->load->model('setting/setting');
         $default_settings = array(
-            'coinpayments_client_id' => '',
-            'coinpayments_client_secret' => '',
-            'coinpayments_webhooks' => 0,
-            'coinpayments_cancelled_status' => $default_cancelled,
-            'coinpayments_completed_status' => $default_completed,
-            'coinpayments_pending_status' => $default_pending,
-            'coinpayments_geo_zone_id' => '0',
-            'coinpayments_sort_order' => null,
+            'payment_coinpayments_client_id' => '',
+            'payment_coinpayments_client_secret' => '',
+            'payment_coinpayments_webhooks' => 0,
+            'payment_coinpayments_cancelled_status' => $default_cancelled,
+            'payment_coinpayments_completed_status' => $default_completed,
+            'payment_coinpayments_pending_status' => $default_pending,
+            'payment_coinpayments_geo_zone_id' => '0',
+            'payment_coinpayments_sort_order' => null,
         );
         $this->model_setting_setting->editSetting('coinpayments', $default_settings);
     }
@@ -201,11 +201,11 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             $this->error['warning'] = $this->language->get('warning_permission');
         }
 
-        if (empty($this->request->post['coinpayments_client_id'])) {
+        if (empty($this->request->post['payment_coinpayments_client_id'])) {
             $this->error['client_id'] = $this->language->get('error_client_id');
         }
 
-        if (!empty($this->request->post['coinpayments_webhooks']) && empty($this->request->post['coinpayments_client_secret'])) {
+        if (!empty($this->request->post['payment_coinpayments_webhooks']) && empty($this->request->post['payment_coinpayments_client_secret'])) {
             $this->error['client_secret'] = $this->language->get('error_client_secret');
         }
 
@@ -213,16 +213,16 @@ class ControllerExtensionPaymentCoinpayments extends Controller
 
             $this->load->model('extension/payment/coinpayments');
 
-            if (empty($this->request->post['coinpayments_webhooks']) &&
-                !$this->model_extension_payment_coinpayments->validateInvoice($this->request->post['coinpayments_client_id'])
+            if (empty($this->request->post['payment_coinpayments_webhooks']) &&
+                !$this->model_extension_payment_coinpayments->validateInvoice($this->request->post['payment_coinpayments_client_id'])
             ) {
 
                 $this->error['invalid_credentials'] = $this->language->get('error_invalid_credentials');
 
-            } elseif (!empty($this->request->post['coinpayments_webhooks']) &&
+            } elseif (!empty($this->request->post['payment_coinpayments_webhooks']) &&
                 !$this->model_extension_payment_coinpayments->validateWebhook(
-                    $this->request->post['coinpayments_client_id'],
-                    $this->request->post['coinpayments_client_secret']
+                    $this->request->post['payment_coinpayments_client_id'],
+                    $this->request->post['payment_coinpayments_client_secret']
                 )
             ) {
 

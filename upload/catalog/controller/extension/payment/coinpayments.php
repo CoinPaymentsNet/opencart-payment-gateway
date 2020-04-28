@@ -79,7 +79,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
         }
 
         // Progress the order status
-        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('coinpayments_pending_status'));
+        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('payment_coinpayments_pending_status'));
         $this->response->redirect($this->url->link('checkout/success'));
     }
 
@@ -87,7 +87,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
     {
         $content = file_get_contents('php://input');
 
-        if ($this->config->get('coinpayments_webhooks') && !empty($this->request->server['HTTP_X_COINPAYMENTS_SIGNATURE'])) {
+        if ($this->config->get('payment_coinpayments_webhooks') && !empty($this->request->server['HTTP_X_COINPAYMENTS_SIGNATURE'])) {
 
             $signature = $this->request->server['HTTP_X_COINPAYMENTS_SIGNATURE'];
             $request_data = json_decode($content, true);
@@ -106,12 +106,12 @@ class ControllerExtensionPaymentCoinpayments extends Controller
                     if ($order_info) {
                         $status = $request_data['invoice']['status'];
                         if ($status == 'Completed') {
-                            if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('coinpayments_completed_status')) {
-                                $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('coinpayments_completed_status'), 'Status: ' . $status);
+                            if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('payment_coinpayments_completed_status')) {
+                                $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('payment_coinpayments_completed_status'), 'Status: ' . $status);
                             }
                         } elseif ($status == 'Cancelled') {
-                            if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('coinpayments_cancelled_status')) {
-                                $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('coinpayments_cancelled_status'), 'Status: ' . $status);
+                            if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('payment_coinpayments_cancelled_status')) {
+                                $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('payment_coinpayments_cancelled_status'), 'Status: ' . $status);
                             }
                         }
                     }
