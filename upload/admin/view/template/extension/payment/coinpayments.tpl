@@ -26,7 +26,8 @@
                 <h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $text_edit; ?></h3>
             </div>
             <div class="panel-body">
-                <form action="<?php echo $url_action; ?>" method="post" enctype="multipart/form-data" id="form-pp-std-uk"
+                <form action="<?php echo $url_action; ?>" method="post" enctype="multipart/form-data"
+                      id="form-pp-std-uk"
                       class="form-horizontal">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>

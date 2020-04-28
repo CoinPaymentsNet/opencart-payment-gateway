@@ -89,10 +89,10 @@ class ControllerExtensionPaymentCoinpayments extends Controller
 
                 $invoice_str = $request_data['invoice']['invoiceId'];
                 $invoice_str = explode('|', $invoice_str);
-                $host_hast = array_shift($invoice_str);
+                $host_hash = array_shift($invoice_str);
                 $invoice_id = array_shift($invoice_str);
 
-                if ($host_hast == md5($this->config->get('config_secure') ? HTTP_SERVER : HTTPS_SERVER) && $invoice_id) {
+                if ($host_hash == md5($this->config->get('config_secure') ? HTTP_SERVER : HTTPS_SERVER) && $invoice_id) {
                     $this->load->model('checkout/order');
                     $order_info = $this->model_checkout_order->getOrder($invoice_id);
                     if ($order_info) {
