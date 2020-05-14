@@ -227,7 +227,7 @@ class Coinpayments
     protected function createSignature($method, $api_url, $client_id, $date, $client_secret, $params)
     {
 
-        if (!empty(json_encode($params))) {
+        if (!empty($params)) {
             $params = json_encode($params);
         }
 
@@ -239,7 +239,7 @@ class Coinpayments
             $api_url,
             $client_id,
             $date->format('c'),
-            json_encode($params)
+            $params
         );
 
         $signature_string = implode('', $signature_data);
