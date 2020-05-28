@@ -37,7 +37,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
         $this->document->setTitle($this->language->get('heading_title'));
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->model_setting_setting->editSetting('coinpayments', $this->request->post);
+            $this->model_setting_setting->editSetting('payment_coinpayments', $this->request->post);
             $this->session->data['success'] = $this->language->get('text_success') . " / status: " . ($this->request->post['payment_coinpayments_status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'));
             $this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=payment', true));
         }
@@ -178,7 +178,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             'payment_coinpayments_geo_zone_id' => '0',
             'payment_coinpayments_sort_order' => null,
         );
-        $this->model_setting_setting->editSetting('coinpayments', $default_settings);
+        $this->model_setting_setting->editSetting('payment_coinpayments', $default_settings);
     }
 
     /**
@@ -188,7 +188,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
     public function uninstall()
     {
         $this->load->model('setting/setting');
-        $this->model_setting_setting->deleteSetting('coinpayments');
+        $this->model_setting_setting->deleteSetting('payment_coinpayments');
     }
 
     /**
