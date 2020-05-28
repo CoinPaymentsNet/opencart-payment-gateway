@@ -159,7 +159,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             if ($order_status['name'] == 'Complete') {
                 $default_completed = $order_status['order_status_id'];
             }
-            if ($order_status['name'] == 'Cancelled') {
+            if ($order_status['name'] == 'Canceled') {
                 $default_cancelled = $order_status['order_status_id'];
             }
             if ($order_status['name'] == 'Pending') {
