@@ -129,7 +129,7 @@ class Coinpayments
      * @return mixed
      * @throws Exception
      */
-    public function getCoinCurrency(string $name)
+    public function getCoinCurrency($name)
     {
 
         $params = array(
