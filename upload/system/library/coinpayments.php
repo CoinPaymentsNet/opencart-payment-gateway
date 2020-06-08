@@ -56,13 +56,13 @@ class Coinpayments
 
         $params = array(
             "notificationsUrl" => $notification_url,
-            "notifications" => [
+            "notifications" => array(
                 "invoiceCreated",
                 "invoicePending",
                 "invoicePaid",
                 "invoiceCompleted",
                 "invoiceCancelled",
-            ],
+            ),
         );
 
         return $this->sendRequest('POST', $action, $client_id, $params, $client_secret);
@@ -85,11 +85,11 @@ class Coinpayments
         $params = array(
             'clientId' => $client_id,
             'invoiceId' => $invoice_id,
-            'amount' => [
+            'amount' => array(
                 'currencyId' => $currency_id,
                 "displayValue" => $display_value,
                 'value' => $amount
-            ],
+            ),
         );
 
         $params = $this->appendInvoiceMetadata($params);
@@ -113,11 +113,11 @@ class Coinpayments
 
         $params = array(
             "invoiceId" => $invoice_id,
-            "amount" => [
+            "amount" => array(
                 "currencyId" => $currency_id,
                 "displayValue" => $display_value,
                 "value" => $amount
-            ],
+            ),
         );
 
         $params = $this->appendInvoiceMetadata($params);
@@ -279,7 +279,6 @@ class Coinpayments
             $options = array(
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_SSL_VERIFYHOST => false,
-                CURLOPT_SSL_VERIFYPEER => false,
             );
 
             $headers = array(
