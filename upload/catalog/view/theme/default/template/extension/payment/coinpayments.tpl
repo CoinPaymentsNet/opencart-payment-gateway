@@ -4,7 +4,7 @@
 </div>
 <?php } else { ?>
 
-<form id="coinpayments_submit" name="coinpayments_submit" action="<?php echo $url_action ?>" method="GET">
+<form id="coinpayments_submit" name="coinpayments_submit" action="<?php echo $action ?>" method="GET">
     <?php foreach($form_params  as $key => $value){ ?>
     <input type="hidden" name="<?php echo $key ?>" value="<?php echo $value ?>"/>
     <?php } ?>
