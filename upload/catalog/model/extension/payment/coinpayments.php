@@ -32,7 +32,7 @@ class ModelExtensionPaymentCoinpayments extends Model
         // All Geo Zones configured or address is in configured Geo Zone
         if (!$this->config->get('payment_coinpayments_geo_zone_id') || $query->num_rows) {
             return array(
-                'code' => 'payment_coinpayments',
+                'code' => 'coinpayments',
                 'title' => $this->language->get('text_title'),
                 'terms' => '',
                 'sort_order' => $this->config->get('payment_coinpayments_sort_order'),
