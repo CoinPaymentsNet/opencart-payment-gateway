@@ -102,7 +102,7 @@
                     </tr>
                     <tr>
                         <td><?php echo $entry_pending_status; ?></td>
-                        <td><select name="coinpayments_pending_status_id">
+                        <td><select name="coinpayments_pending_status">
                                 <?php foreach ($order_statuses as $order_status) { ?>
                                 <?php if ($order_status['order_status_id'] == $coinpayments_pending_status) { ?>
                                 <option value="<?php echo $order_status['order_status_id']; ?>"
