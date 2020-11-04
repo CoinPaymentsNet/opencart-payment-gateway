@@ -46,7 +46,7 @@ class ControllerPaymentCoinpayments extends Controller
         $this->load->model('checkout/order');
 
         $order_id = $this->session->data['order_id'];
-        $this->data['action'] = sprintf('%s/%s/', Coinpayments::API_URL, Coinpayments::API_CHECKOUT_ACTION);
+        $this->data['action'] = sprintf('%s/%s/', Coinpayments::CHECKOUT_URL, Coinpayments::API_CHECKOUT_ACTION);
 
         $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
         if (false === $order_info) {
