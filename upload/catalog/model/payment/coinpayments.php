@@ -17,7 +17,6 @@ class ModelPaymentCoinpayments extends Model
     {
         parent::__construct($registry);
         $this->load->language('payment/coinpayments');
-        //$this->load->library('coinpayments');
         require_once(DIR_SYSTEM . 'library/coinpayments.php');
         $this->coinpayments = new Coinpayments($registry);
     }

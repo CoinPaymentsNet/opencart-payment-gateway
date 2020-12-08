@@ -18,7 +18,6 @@ class ControllerPaymentCoinpayments extends Controller
         parent::__construct($registry);
 
         $this->load->language('payment/coinpayments');
-        //$this->load->library('coinpayments');
         require_once(DIR_SYSTEM . 'library/coinpayments.php');
         $this->coinpayments = new Coinpayments($registry);
     }
@@ -54,7 +53,7 @@ class ControllerPaymentCoinpayments extends Controller
             $data['error_coinpayments'] = $this->language->get('error_create_invoice');
         }
 
-        $data['action'] = sprintf('%s/%s/', Coinpayments::API_URL, Coinpayments::API_CHECKOUT_ACTION);
+        $data['action'] = sprintf('%s/%s/', Coinpayments::CHECKOUT_URL, Coinpayments::API_CHECKOUT_ACTION);
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/coinpayments.tpl')) {
             return $this->load->view($this->config->get('config_template') . '/template/payment/coinpayments.tpl', $data);
         } else {

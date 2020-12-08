@@ -16,7 +16,6 @@ class ModelPaymentCoinpayments extends Model
     public function __construct($registry)
     {
         parent::__construct($registry);
-        //$this->load->library('coinpayments');
         require_once(DIR_SYSTEM . 'library/coinpayments.php');
         $this->coinpayments = new Coinpayments($registry);
     }
