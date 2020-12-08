@@ -18,7 +18,8 @@ class ControllerPaymentCoinpayments extends Controller
         parent::__construct($registry);
 
         $this->load->language('payment/coinpayments');
-        $this->load->library('coinpayments');
+        //$this->load->library('coinpayments');
+        require_once(DIR_SYSTEM . 'library/coinpayments.php');
         $this->coinpayments = new Coinpayments($registry);
     }
 
