@@ -58,7 +58,7 @@ class ModelPaymentCoinpayments extends Model
      * @return bool
      * @throws Exception
      */
-    public function validateWebhook($client_id, $client_secret, $event)
+    public function validateWebhook($client_id, $client_secret)
     {
 
         $valid = false;
@@ -73,8 +73,8 @@ class ModelPaymentCoinpayments extends Model
                 }, $webhooks_list['items']);
             }
 
-            if (!in_array($this->coinpayments->getNotificationUrl($client_id, $event), $webhooks_urls_list)) {
-                if (!empty($this->coinpayments->createWebHook($client_id, $client_secret, $event))) {
+            if (!in_array($this->coinpayments->getNotificationUrl($client_id, Coinpayments::COMPLETED_EVENT), $webhooks_urls_list) || !in_array($this->coinpayments->getNotificationUrl($client_id, Coinpayments::CANCELLED_EVENT), $webhooks_urls_list)) {
+                if (!empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::COMPLETED_EVENT)) && !empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::CANCELLED_EVENT))) {
                     $valid = true;
                 }
             } else {
