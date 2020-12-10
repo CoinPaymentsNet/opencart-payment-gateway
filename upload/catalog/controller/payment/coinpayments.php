@@ -85,7 +85,7 @@ class ControllerPaymentCoinpayments extends Controller
             $request_data = json_decode($content, true);
             $this->load->model('payment/coinpayments');
 
-            if ($this->model_payment_coinpayments->checkDataSignature($signature, $content) && isset($request_data['invoice']['invoiceId'])) {
+            if ($this->model_payment_coinpayments->checkDataSignature($signature, $content, $request_data['invoice']['status']) && isset($request_data['invoice']['invoiceId'])) {
 
                 $invoice_str = $request_data['invoice']['invoiceId'];
                 $invoice_str = explode('|', $invoice_str);
@@ -97,11 +97,11 @@ class ControllerPaymentCoinpayments extends Controller
                     $order_info = $this->model_checkout_order->getOrder($invoice_id);
                     if ($order_info) {
                         $status = $request_data['invoice']['status'];
-                        if ($status == 'Completed') {
+                        if ($status == Coinpayments::COMPLETED_EVENT) {
                             if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('coinpayments_completed_status')) {
                                 $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('coinpayments_completed_status'), 'Status: ' . $status);
                             }
-                        } elseif ($status == 'Cancelled') {
+                        } elseif ($status == Coinpayments::CANCELLED_EVENT) {
                             if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('coinpayments_cancelled_status')) {
                                 $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('coinpayments_cancelled_status'), 'Status: ' . $status);
                             }

@@ -214,7 +214,13 @@ class ControllerPaymentCoinpayments extends Controller
             } elseif (!empty($this->request->post['coinpayments_webhooks']) &&
                 !$this->model_payment_coinpayments->validateWebhook(
                     $this->request->post['coinpayments_client_id'],
-                    $this->request->post['coinpayments_client_secret']
+                    $this->request->post['coinpayments_client_secret'],
+                    Coinpayments::COMPLETED_EVENT
+                ) &&
+                !$this->model_payment_coinpayments->validateWebhook(
+                    $this->request->post['coinpayments_client_id'],
+                    $this->request->post['coinpayments_client_secret'],
+                    Coinpayments::CANCELLED_EVENT
                 )
             ) {
 

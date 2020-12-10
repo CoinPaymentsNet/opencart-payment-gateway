@@ -71,10 +71,10 @@ class ModelPaymentCoinpayments extends Model
         return $invoice;
     }
 
-    public function checkDataSignature($signature, $content)
+    public function checkDataSignature($signature, $content, $event)
     {
 
-        $request_url = $this->coinpayments->getNotificationUrl();
+        $request_url = $this->coinpayments->getNotificationUrl($event);
         $client_secret = $this->config->get('coinpayments_client_secret');
         $signature_string = sprintf('%s%s', $request_url, $content);
         $encoded_pure = $this->coinpayments->encodeSignatureString($signature_string, $client_secret);
