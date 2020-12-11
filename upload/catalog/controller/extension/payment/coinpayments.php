@@ -61,7 +61,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             $data['error_coinpayments'] = $this->language->get('error_create_invoice');
         }
 
-        $data['action'] = sprintf('%s/%s/', Coinpayments::API_URL, Coinpayments::API_CHECKOUT_ACTION);
+        $data['action'] = sprintf('%s/%s/', Coinpayments::CHECKOUT_URL, Coinpayments::API_CHECKOUT_ACTION);
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/extension/payment/coinpayments')) {
             return $this->load->view($this->config->get('config_template') . '/template/extension/payment/coinpayments', $data);
         } else {

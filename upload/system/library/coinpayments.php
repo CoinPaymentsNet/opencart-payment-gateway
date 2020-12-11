@@ -7,6 +7,8 @@ class Coinpayments
 {
 
     const API_URL = 'https://api.coinpayments.net';
+    const CHECKOUT_URL = 'https://checkout.coinpayments.net';
+//+
     const API_VERSION = '1';
 
     const API_SIMPLE_INVOICE_ACTION = 'invoices';
