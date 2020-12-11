@@ -17,6 +17,9 @@ class Coinpayments
     const API_CHECKOUT_ACTION = 'checkout';
     const FIAT_TYPE = 'fiat';
 
+    const COMPLETED_EVENT = 'Completed';
+    const CANCELLED_EVENT = 'Cancelled';
+
     const WEBHOOK_NOTIFICATION_URL = 'payment/coinpayments/callback';
 
     /** @var Registry $registry */
@@ -50,20 +53,14 @@ class Coinpayments
      * @return bool|mixed
      * @throws Exception
      */
-    public function createWebHook($client_id, $client_secret, $notification_url)
+    public function createWebHook($client_id, $client_secret, $event)
     {
 
         $action = sprintf(self::API_WEBHOOK_ACTION, $client_id);
 
         $params = array(
-            "notificationsUrl" => $notification_url,
-            "notifications" => array(
-                "invoiceCreated",
-                "invoicePending",
-                "invoicePaid",
-                "invoiceCompleted",
-                "invoiceCancelled",
-            ),
+            "notificationsUrl" => $this->getNotificationUrl($client_id, $event),
+            "notifications" => [sprintf("invoice%s", $event),],
         );
 
         return $this->sendRequest('POST', $action, $client_id, $params, $client_secret);
@@ -174,7 +171,7 @@ class Coinpayments
     /**
      * @return string
      */
-    public function getNotificationUrl()
+    public function getNotificationUrl($client_id, $event)
     {
 
         if (defined('HTTP_CATALOG')) {
@@ -183,7 +180,7 @@ class Coinpayments
             $url = new Url(HTTP_SERVER, $this->config->get('config_secure') ? HTTP_SERVER : HTTPS_SERVER);
         }
 
-        return $url->link(self::WEBHOOK_NOTIFICATION_URL);
+        return html_entity_decode($url->link(self::WEBHOOK_NOTIFICATION_URL, 'clientId='.$client_id . '&event='.$event));
     }
 
     /**
