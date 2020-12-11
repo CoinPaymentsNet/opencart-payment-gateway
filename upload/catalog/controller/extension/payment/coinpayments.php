@@ -93,7 +93,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             $request_data = json_decode($content, true);
             $this->load->model('extension/payment/coinpayments');
 
-            if ($this->model_extension_payment_coinpayments->checkDataSignature($signature, $content) && isset($request_data['invoice']['invoiceId'])) {
+            if ($this->model_extension_payment_coinpayments->checkDataSignature($signature, $content, $request_data['invoice']['status']) && isset($request_data['invoice']['invoiceId'])) {
 
                 $invoice_str = $request_data['invoice']['invoiceId'];
                 $invoice_str = explode('|', $invoice_str);
