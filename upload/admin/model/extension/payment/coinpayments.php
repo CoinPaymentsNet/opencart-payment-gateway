@@ -73,8 +73,8 @@ class ModelExtensionPaymentCoinpayments extends Model
                 }, $webhooks_list['items']);
             }
 
-            if (!in_array($this->coinpayments->getNotificationUrl(), $webhooks_urls_list)) {
-                if (!empty($this->coinpayments->createWebHook($client_id, $client_secret, $this->coinpayments->getNotificationUrl()))) {
+            if (!in_array($this->coinpayments->getNotificationUrl($client_id, Coinpayments::PAID_EVENT), $webhooks_urls_list) || !in_array($this->coinpayments->getNotificationUrl($client_id, Coinpayments::CANCELLED_EVENT), $webhooks_urls_list)) {
+                if (!empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::PAID_EVENT)) && !empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::CANCELLED_EVENT))) {
                     $valid = true;
                 }
             } else {
