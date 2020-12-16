@@ -18,7 +18,7 @@ class Coinpayments
     const API_CHECKOUT_ACTION = 'checkout';
     const FIAT_TYPE = 'fiat';
 
-    const COMPLETED_EVENT = 'Completed';
+    const PAID_EVENT = 'Paid';
     const CANCELLED_EVENT = 'Cancelled';
 
     const WEBHOOK_NOTIFICATION_URL = 'extension/payment/coinpayments/callback';
