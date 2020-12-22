@@ -81,7 +81,7 @@ class Coinpayments
 
         $action = self::API_SIMPLE_INVOICE_ACTION;
 
-        $notes_to_recipient = sprintf("%s order #%s %s",$this->config->get('config_name'),explode('|', $invoice_id)[1], defined('HTTP_CATALOG') ? HTTP_CATALOG : HTTP_SERVER);
+        $notes_to_recipient = sprintf("%s / Store name: %s / Order # %s",defined('HTTP_CATALOG') ? HTTP_CATALOG : HTTP_SERVER,$this->config->get('config_name'),explode('|', $invoice_id)[1]);
 
         $params = array(
             'clientId' => $client_id,
@@ -113,7 +113,7 @@ class Coinpayments
 
         $action = self::API_MERCHANT_INVOICE_ACTION;
 
-        $notes_to_recipient = sprintf("%s order #%s %s",$this->config->get('config_name'),explode('|', $invoice_id)[1], defined('HTTP_CATALOG') ? HTTP_CATALOG : HTTP_SERVER);
+        $notes_to_recipient = sprintf("%s / Store name: %s / Order # %s",defined('HTTP_CATALOG') ? HTTP_CATALOG : HTTP_SERVER,$this->config->get('config_name'),explode('|', $invoice_id)[1]);
 
         $params = array(
             "invoiceId" => $invoice_id,
