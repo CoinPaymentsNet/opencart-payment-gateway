@@ -95,7 +95,7 @@ class Coinpayments
 
         $action = self::API_SIMPLE_INVOICE_ACTION;
 
-        $notes = sprintf("%s / Store name: %s / Order # %s",$this->getShopHostname(),$this->config->get('config_name'),explode('|', $invoice_id)[1]);
+        $notesToRecipient = sprintf("%s / Store name: %s / Order # %s",$this->getShopHostname(),$this->config->get('config_name'),explode('|', $invoice_id)[1]);
 
         $params = array(
             'clientId' => $client_id,
@@ -105,7 +105,7 @@ class Coinpayments
                 "displayValue" => $display_value,
                 'value' => $amount
             ),
-            "notes" => $notes
+            "notesToRecipient" => $notesToRecipient
         );
 
         $params = $this->appendInvoiceMetadata($params);
