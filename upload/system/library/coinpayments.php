@@ -68,6 +68,19 @@ class Coinpayments
     }
 
     /**
+     * @return string
+     */
+    protected function getShopHostname(){
+
+        if (defined('HTTP_CATALOG')) {
+            $hostname = $this->config->get('config_secure') ? HTTP_CATALOG : HTTPS_CATALOG;
+        } else {
+            $hostname = $this->config->get('config_secure') ? HTTP_SERVER : HTTPS_SERVER;
+        }
+        return $hostname;
+    }
+
+    /**
      * @param $client_id
      * @param int $currency_id
      * @param string $invoice_id
@@ -81,6 +94,8 @@ class Coinpayments
 
         $action = self::API_SIMPLE_INVOICE_ACTION;
 
+        $notesToRecipient = sprintf("%s / Store name: %s / Order # %s",$this->getShopHostname(),$this->config->get('config_name'),explode('|', $invoice_id)[1]);
+
         $params = array(
             'clientId' => $client_id,
             'invoiceId' => $invoice_id,
@@ -89,6 +104,7 @@ class Coinpayments
                 "displayValue" => $display_value,
                 'value' => $amount
             ),
+            'notesToRecipient' => $notesToRecipient
         );
 
         $params = $this->appendInvoiceMetadata($params);
@@ -110,6 +126,8 @@ class Coinpayments
 
         $action = self::API_MERCHANT_INVOICE_ACTION;
 
+        $notes = sprintf("%s / Store name: %s / Order # %s",$this->getShopHostname(),$this->config->get('config_name'),explode('|', $invoice_id)[1]);
+
         $params = array(
             "invoiceId" => $invoice_id,
             "amount" => array(
@@ -117,6 +135,7 @@ class Coinpayments
                 "displayValue" => $display_value,
                 "value" => $amount,
             ),
+            "notes" =>$notes
         );
 
         $params = $this->appendInvoiceMetadata($params);
@@ -174,12 +193,7 @@ class Coinpayments
      */
     public function getNotificationUrl($client_id, $event)
     {
-
-        if (defined('HTTP_CATALOG')) {
-            $url = new Url(HTTP_CATALOG, $this->config->get('config_secure') ? HTTP_CATALOG : HTTPS_CATALOG);
-        } else {
-            $url = new Url(HTTP_SERVER, $this->config->get('config_secure') ? HTTP_SERVER : HTTPS_SERVER);
-        }
+        $url = new Url( defined('HTTP_CATALOG')? HTTP_CATALOG:HTTP_SERVER,$this->getShopHostname());
 
         return html_entity_decode($url->link(self::WEBHOOK_NOTIFICATION_URL, 'clientId='.$client_id . '&event='.$event));
     }
@@ -200,12 +214,7 @@ class Coinpayments
      */
     protected function appendInvoiceMetadata($request_data)
     {
-        if (defined('HTTP_CATALOG')) {
-            $hostname = $this->config->get('config_secure') ? HTTP_CATALOG : HTTPS_CATALOG;
-        } else {
-            $hostname = $this->config->get('config_secure') ? HTTP_SERVER : HTTPS_SERVER;
-        }
-
+        $hostname = $this->getShopHostname();
         $request_data['metadata'] = array(
             "integration" => sprintf("OpenCart_v%s", VERSION),
             "hostname" => $hostname,
