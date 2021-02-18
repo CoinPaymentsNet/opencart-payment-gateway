@@ -61,11 +61,20 @@ class ModelExtensionPaymentCoinpayments extends Model
         $amount = number_format($order_info['total'], $coin_currency['decimalPlaces'], '', '');;
         $display_value = $order_info['total'];
 
+        $invoice_params = array(
+            'invoice_id' => $invoice_id,
+            'currency_id' => $coin_currency['id'],
+            'amount' => $amount,
+            'display_value' => $display_value,
+            'billing_data' => $order_info,
+            'notes_link' => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_info['order_id'], true),
+        );
+
         if ($this->config->get('coinpayments_webhooks')) {
-            $resp = $this->coinpayments->createMerchantInvoice($client_id, $client_secret, $coin_currency['id'], $invoice_id, $amount, $display_value, $order_info);
+            $resp = $this->coinpayments->createMerchantInvoice($client_id, $client_secret, $invoice_params);
             $invoice = array_shift($resp['invoices']);
         } else {
-            $invoice = $this->coinpayments->createSimpleInvoice($client_id, $coin_currency['id'], $invoice_id, $amount, $display_value, $order_info);
+            $invoice = $this->coinpayments->createSimpleInvoice($client_id, $invoice_params);
         }
 
         return $invoice;

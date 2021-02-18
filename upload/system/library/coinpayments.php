@@ -82,61 +82,55 @@ class Coinpayments
 
     /**
      * @param $client_id
-     * @param int $currency_id
-     * @param string $invoice_id
-     * @param int $amount
-     * @param string $display_value
-     * @param $billing_data
+     * @param $invoice_params
      * @return bool|mixed
      * @throws Exception
      */
-    public function createSimpleInvoice($client_id, $currency_id = 5057, $invoice_id = 'Validate invoice', $amount = 1, $display_value = '0.01', $billing_data)
+    public function createSimpleInvoice($client_id, $invoice_params)
     {
 
         $action = self::API_SIMPLE_INVOICE_ACTION;
 
         $params = array(
             'clientId' => $client_id,
-            'invoiceId' => $invoice_id,
+            'invoiceId' => $invoice_params['invoice_id'],
             'amount' => array(
-                'currencyId' => $currency_id,
-                "displayValue" => $display_value,
-                'value' => $amount
+                'currencyId' => $invoice_params['currency_id'],
+                "displayValue" => $invoice_params['display_value'],
+                'value' => $invoice_params['amount']
             ),
+            'notesToRecipient' => $invoice_params['notes_link']
         );
 
-        $params = $this->append_billing_data($params, $billing_data);
-        $params = $this->appendInvoiceMetadata($params, 'notesToRecipient');
+        $params = $this->append_billing_data($params, $invoice_params['billing_data']);
+        $params = $this->appendInvoiceMetadata($params);
         return $this->sendRequest('POST', $action, $client_id, $params);
     }
 
     /**
      * @param $client_id
      * @param $client_secret
-     * @param $currency_id
-     * @param $invoice_id
-     * @param $amount
-     * @param $display_value
-     * @param $billing_data
+     * @param $invoice_params
      * @return bool|mixed
      * @throws Exception
      */
-    public function createMerchantInvoice($client_id, $client_secret, $currency_id, $invoice_id, $amount, $display_value, $billing_data)
+    public function createMerchantInvoice($client_id, $client_secret, $invoice_params)
     {
 
         $action = self::API_MERCHANT_INVOICE_ACTION;
 
         $params = array(
-            "invoiceId" => $invoice_id,
+            "invoiceId" => $invoice_params['invoice_id'],
             "amount" => array(
-                "currencyId" => $currency_id,
-                "displayValue" => $display_value,
-                "value" => $amount,
+                "currencyId" => $invoice_params['currency_id'],
+                "displayValue" => $invoice_params['display_value'],
+                "value" => $invoice_params['amount'],
             ),
+            "notesToRecipient" => $invoice_params['notes_link']
         );
 
-        $params = $this->append_billing_data($params, $billing_data);
-        $params = $this->appendInvoiceMetadata($params, "notes");
+        $params = $this->append_billing_data($params, $invoice_params['billing_data']);
+        $params = $this->appendInvoiceMetadata($params);
         return $this->sendRequest('POST', $action, $client_id, $params, $client_secret);
     }
 
@@ -229,14 +223,14 @@ class Coinpayments
      * @param $request_data
      * @return mixed
      */
-    protected function appendInvoiceMetadata($request_data, $notes_field_name)
+    protected function appendInvoiceMetadata($request_data)
     {
         $hostname = $this->getShopHostname();
         $request_data['metadata'] = array(
             "integration" => sprintf("OpenCart_v%s", VERSION),
             "hostname" => $hostname,
         );
-        $request_data[$notes_field_name] = sprintf("%s / Store name: %s / Order # %s",$this->getShopHostname(),$this->config->get('config_name'),explode('|', $request_data['invoiceId'])[1]);
+
         return $request_data;
     }
 
