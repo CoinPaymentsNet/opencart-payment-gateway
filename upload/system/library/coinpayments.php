@@ -156,6 +156,18 @@ class Coinpayments
             "emailAddress" => $billing_data['email'],
             "phoneNumber" => $billing_data['telephone'],
         );
+        if (preg_match('/^([A-Z]{2})$/', $billing_data['payment_iso_code_2'])
+            && !empty($billing_data['payment_address_1'])
+            && !empty($billing_data['payment_city'])
+        ) {
+            $request_data['buyer']['address'] = array(
+                'address1' => $billing_data['payment_address_1'],
+                'provinceOrState' => $billing_data['payment_zone'],
+                'city' => $billing_data['payment_city'],
+                'countryCode' => $billing_data['payment_iso_code_2'],
+                'postalCode' => $billing_data['payment_postcode'],
+            );
+        }
         return $request_data;
     }
 
