@@ -105,8 +105,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
                     $order_info = $this->model_checkout_order->getOrder($invoice_id);
                     if ($order_info) {
                         $status = $request_data['invoice']['status'];
-                        $completed_statuses = array(Coinpayments::PAID_EVENT, Coinpayments::PENDING_EVENT);
-                        if (in_array($status, $completed_statuses)) {
+                        if ($status == Coinpayments::PAID_EVENT) {
                             if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('payment_coinpayments_completed_status')) {
                                 $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('payment_coinpayments_completed_status'), 'Status: ' . $status);
                             }
