@@ -66,7 +66,7 @@ class ModelExtensionPaymentCoinpayments extends Model
             'amount' => $amount,
             'display_value' => $display_value,
             'billing_data' => $order_info,
-            'notes_link' => $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_info['order_id'], true),
+            'notes_link' => html_entity_decode($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_info['order_id'], true)),
         );
 
         if ($this->config->get('payment_coinpayments_webhooks')) {
