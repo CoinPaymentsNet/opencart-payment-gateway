@@ -5,6 +5,7 @@
 {% else %}
 
     <form id="payment_coinpayments_submit" name="payment_coinpayments_submit" action="{{ action }}" method="GET">
+        Pay with Bitcoin, Litecoin, or other altcoins via  <a href="https://alpha.coinpayments.net/" target="_blank" title="CoinPayments.net">CoinPayments.net</a>
         {% for key, value in form_params %}
             <input type="hidden" name="{{ key }}" value="{{ value }}"/>
         {% endfor %}
