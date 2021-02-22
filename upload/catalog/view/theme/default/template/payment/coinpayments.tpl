@@ -5,6 +5,7 @@
 <?php } else { ?>
 
 <form id="coinpayments_submit" name="coinpayments_submit" action="<?php echo $action ?>" method="GET">
+    Pay with Bitcoin, Litecoin, or other altcoins via  <a href="https://alpha.coinpayments.net/" target="_blank" title="CoinPayments.net">CoinPayments.net</a>
     <?php foreach($form_params  as $key => $value){ ?>
     <input type="hidden" name="<?php echo $key ?>" value="<?php echo $value ?>"/>
     <?php } ?>
