@@ -67,8 +67,12 @@ class ModelPaymentCoinpayments extends Model
             'amount' => $amount,
             'display_value' => $display_value,
             'billing_data' => $order_info,
-            'notes_link' => html_entity_decode($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_info['order_id'], true)),
-        );
+            'notes_link' => sprintf(
+                "%s|Store name: %s|Order #%s",
+                html_entity_decode($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_info['order_id'], true)),
+                $this->config->get('config_name'),
+                $order_info['order_id']),
+            );
 
         if ($this->config->get('coinpayments_webhooks')) {
             $resp = $this->coinpayments->createMerchantInvoice($client_id, $client_secret, $invoice_params);
