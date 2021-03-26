@@ -69,13 +69,13 @@ class Coinpayments
     /**
      * @return string
      */
-    protected function getShopHostname()
+    public function getShopHostname()
     {
 
         if (defined('HTTP_CATALOG')) {
-            $hostname = $this->config->get('config_secure') ? HTTP_CATALOG : HTTPS_CATALOG;
+            $hostname = $this->config->get('config_secure') ? HTTPS_CATALOG : HTTP_CATALOG;
         } else {
-            $hostname = $this->config->get('config_secure') ? HTTP_SERVER : HTTPS_SERVER;
+            $hostname = $this->config->get('config_secure') ? HTTPS_SERVER : HTTP_SERVER;
         }
         return $hostname;
     }
