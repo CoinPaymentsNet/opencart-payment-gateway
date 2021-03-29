@@ -58,8 +58,12 @@ class ModelPaymentCoinpayments extends Model
         $currency_code = $order_info['currency_code'];
         $coin_currency = $this->coinpayments->getCoinCurrency($currency_code);
 
-        $amount = number_format($order_info['total'], $coin_currency['decimalPlaces'], '', '');;
+        $amount = number_format($order_info['total'], $coin_currency['decimalPlaces'], '', '');
         $display_value = $order_info['total'];
+
+        $hostname = $this->coinpayments->getShopHostname();
+        $admin_catalog = 'admin/';
+        $url = new Url((defined('HTTP_CATALOG') ? HTTP_CATALOG : HTTP_SERVER) . $admin_catalog, $hostname . $admin_catalog);
 
         $invoice_params = array(
             'invoice_id' => $invoice_id,
@@ -69,7 +73,7 @@ class ModelPaymentCoinpayments extends Model
             'billing_data' => $order_info,
             'notes_link' => sprintf(
                 "%s|Store name: %s|Order #%s",
-                html_entity_decode($this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order_info['order_id'], true)),
+                html_entity_decode($url->link('sale/order/info', 'order_id=' . $order_info['order_id'], true)),
                 $this->config->get('config_name'),
                 $order_info['order_id']),
         );
