@@ -3,7 +3,7 @@ $_['heading_title'] = 'CoinPayments.net Cryptocoin Payments';
 
 $_['text_payment'] = 'Payments';
 
-$_['text_coinpayments'] = '<a onclick="window.open(\'https://www.coinpayments.net/\');"><img src="view/image/payment/coinpayments.png" alt="CoinPayments" title="coinpayments" style="border: 1px solid #EEEEEE;" /></a>';
+$_['text_coinpayments'] = '<a onclick="window.open(\'https://www.coinpayments.net/\');"><img src="view/image/payment/coinpayments.svg" alt="CoinPayments" title="coinpayments" style="border: 1px solid #EEEEEE;" /></a>';
 $_['text_edit'] = 'Edit CoinPayments Settings';
 $_['text_success'] = 'Your account details have been updated!';
 $_['text_all_zones'] = 'All Zones';
