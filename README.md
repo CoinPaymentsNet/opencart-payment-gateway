@@ -8,14 +8,6 @@ Demonstration Website Disclaimer:   The information presented on alpha.coinpayme
 
 In no event will CoinPayments Inc. or its directors, officers, employees, shareholders, service providers or agents, be liable to you, or anyone else, for any decision(s) made or action(s) taken in reliance upon the information contained in the Demo Site, nor for any direct, indirect, incidental, special, exemplary, punitive, consequential, or other damages whatsoever (including, but not limited to, liability for loss of use, funds, data or profits) whether in an action of contract, statute, tort or otherwise, relating to the use of the Demo Site.
 
-OpenCart 1.5.* Payment Gateway plugin for CoinPayments.net
-========================
-
-To install:
-1) Upload the contents of the upload folder into your OpenCart root folder.
-2) Go to the Payment extensions area and click the Install button.
-3) Edit the plugin settings with your CoinPayments Client ID and Client Secret and set the status to Enabled.
-
 # Follow the steps below to download this plugin:
   
 1. Log into your https://alpha.coinpayments.net/ account
