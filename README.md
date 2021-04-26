@@ -23,3 +23,12 @@ To install:
 	a) Cancelled/Timed Out: Canceled
 	b) Completed: Processing
 	c) Pending: Pending
+	
+# Follow the steps below to download this plugin:
+  
+1. Log into your https://alpha.coinpayments.net/ account
+2. Click on Business Tools -> Intergrations -> Pre-built Plugins -> + add Intergration button
+3. Select this plug-in from the dropdown menu
+4. Click the download plugin button
+
+![Screenshot 2021-04-26 043153](https://user-images.githubusercontent.com/72504315/116075903-6195de80-a648-11eb-8156-71529c7649d6.png)
