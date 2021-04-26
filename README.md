@@ -10,19 +10,6 @@ In no event will CoinPayments Inc. or its directors, officers, employees, shareh
 
 ## **Note**
 If you would like to download the archive from GtHub. you should do it using the tag corresponding OpenCart version of your demo store.
-
-OpenCart 2.0.*-2.2.* Payment Gateway plugin for CoinPayments.net
-========================
-
-To install:
-1) Upload CoinPayments.NET extension archive on "Extension Installer" page
-    or just upload the contents of the upload folder into your OpenCart root folder.
-2) Go to the Payment extensions area and click the Install button.
-3) Edit the plugin settings with your CoinPayments Client ID and Client Secret and set the status to Enabled.
-4) Switch to the Order Status tab to set your order statuses. Good defaults are:
-	a) Cancelled/Timed Out: Canceled
-	b) Completed: Processing
-	c) Pending: Pending
 	
 # Follow the steps below to download this plugin:
   
