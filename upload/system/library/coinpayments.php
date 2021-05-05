@@ -53,13 +53,13 @@ class Coinpayments
      * @return bool|mixed
      * @throws Exception
      */
-    public function createWebHook($client_id, $client_secret, $event)
+    public function createWebHook($client_id, $client_secret, $event, $notification_url)
     {
 
         $action = sprintf(self::API_WEBHOOK_ACTION, $client_id);
 
         $params = array(
-            "notificationsUrl" => $this->getNotificationUrl($client_id, $event),
+            "notificationsUrl" => $notification_url,
             "notifications" => [sprintf("invoice%s", $event),],
         );
 
