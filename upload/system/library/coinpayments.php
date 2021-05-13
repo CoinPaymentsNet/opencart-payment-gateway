@@ -16,7 +16,6 @@ class Coinpayments
     const API_MERCHANT_INVOICE_ACTION = 'merchant/invoices';
     const API_CURRENCIES_ACTION = 'currencies';
     const API_CHECKOUT_ACTION = 'checkout';
-    const FIAT_TYPE = 'fiat';
 
     const PAID_EVENT = 'Paid';
     const CANCELLED_EVENT = 'Cancelled';
@@ -174,14 +173,15 @@ class Coinpayments
     {
 
         $params = array(
-            'types' => self::FIAT_TYPE,
             'q' => $name,
         );
         $items = array();
 
         $listData = $this->getCoinCurrencies($params);
         if (!empty($listData['items'])) {
-            $items = $listData['items'];
+            $items = array_filter($listData['items'], function($currency) use ($name){
+                return $currency['symbol'] == $name;
+            });
         }
 
         return array_shift($items);
