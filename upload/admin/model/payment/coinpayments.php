@@ -73,8 +73,10 @@ class ModelPaymentCoinpayments extends Model
                 }, $webhooks_list['items']);
             }
 
-            if (!in_array($this->coinpayments->getNotificationUrl($client_id, Coinpayments::PAID_EVENT), $webhooks_urls_list) || !in_array($this->coinpayments->getNotificationUrl($client_id, Coinpayments::CANCELLED_EVENT), $webhooks_urls_list)) {
-                if (!empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::PAID_EVENT)) && !empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::CANCELLED_EVENT))) {
+            $notification_url_paid = str_replace(rtrim(dirname($_SERVER['SCRIPT_NAME']), '/.\\'), "", $this->coinpayments->getNotificationUrl($client_id, Coinpayments::PAID_EVENT));
+            $notification_url_cancelled = str_replace(rtrim(dirname($_SERVER['SCRIPT_NAME']), '/.\\'), "", $this->coinpayments->getNotificationUrl($client_id, Coinpayments::CANCELLED_EVENT));
+            if (!in_array($notification_url_paid, $webhooks_urls_list) || !in_array($notification_url_cancelled, $webhooks_urls_list)) {
+                if (!empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::PAID_EVENT, $notification_url_paid)) && !empty($this->coinpayments->createWebHook($client_id, $client_secret, Coinpayments::CANCELLED_EVENT, $notification_url_cancelled))) {
                     $valid = true;
                 }
             } else {
