@@ -58,7 +58,8 @@ class ModelExtensionPaymentCoinpayments extends Model
         $currency_code = $order_info['currency_code'];
         $coin_currency = $this->coinpayments->getCoinCurrency($currency_code);
 
-        $amount = number_format($order_info['total'], $coin_currency['decimalPlaces'], '', '');;
+        $order_info['total'] = $this->currency->format($order_info['total'], $order_info['currency_code'], '', false);
+        $amount = number_format($order_info['total'], $coin_currency['decimalPlaces'], '', '');
         $display_value = $order_info['total'];
 
         $hostname = $this->coinpayments->getShopHostname();
