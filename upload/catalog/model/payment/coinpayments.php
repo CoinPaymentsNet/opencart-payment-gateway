@@ -64,7 +64,7 @@ class ModelPaymentCoinpayments extends Model
 
         $hostname = $this->coinpayments->getShopHostname();
         $url = new Url((defined('HTTP_CATALOG') ? HTTP_CATALOG : HTTP_SERVER) , $hostname);
-        $notes_link = html_entity_decode($url->link('sale/order/info', 'order_id=' . $order_info['order_id'], true));
+        $notes_link = html_entity_decode($url->link('sale/order/info', 'order_id=' . $order_info['order_id']));
         $notes_link = substr($notes_link, 0, strripos($notes_link, 'index.php'))."admin/".substr($notes_link, strripos($notes_link, 'index.php'));
         $invoice_params = array(
             'invoice_id' => $invoice_id,
