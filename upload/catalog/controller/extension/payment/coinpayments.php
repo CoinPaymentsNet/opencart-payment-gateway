@@ -85,9 +85,9 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             $request_data = json_decode($content, true);
             $this->load->model('extension/payment/coinpayments');
 
-            if ($this->model_extension_payment_coinpayments->checkDataSignature($signature, $content, $request_data['invoice']['status']) && isset($request_data['invoice']['invoiceId'])) {
+            if ($this->model_extension_payment_coinpayments->checkDataSignature($signature, $content, $request_data['invoice']['state']) && isset($request_data['invoice']['invoice_id'])) {
 
-                $invoice_str = $request_data['invoice']['invoiceId'];
+                $invoice_str = $request_data['invoice']['invoice_id'];
                 $invoice_str = explode('|', $invoice_str);
                 $host_hash = array_shift($invoice_str);
                 $invoice_id = array_shift($invoice_str);
@@ -96,7 +96,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
                     $this->load->model('checkout/order');
                     $order_info = $this->model_checkout_order->getOrder($invoice_id);
                     if ($order_info) {
-                        $status = $request_data['invoice']['status'];
+                        $status = $request_data['invoice']['state'];
                         if ($status == Coinpayments::PAID_EVENT) {
                             if (!$order_info['order_status_id'] || $order_info['order_status_id'] != $this->config->get('coinpayments_completed_status')) {
                                 $this->model_checkout_order->addOrderHistory($order_info['order_id'], $this->config->get('coinpayments_completed_status'), 'Status: ' . $status);
