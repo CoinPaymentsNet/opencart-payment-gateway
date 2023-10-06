@@ -101,7 +101,10 @@ class Coinpayments
             'notesToRecipient' => $invoice_params['notes_link']
         );
 
-        $params = $this->append_billing_data($params, $invoice_params['billing_data']);
+        if (!empty($invoice_params['billing_data'])) {
+            $params = $this->append_billing_data($params, $invoice_params['billing_data']);
+        }
+
         $params = $this->appendInvoiceMetadata($params);
         return $this->sendRequest('POST', $action, $client_id, $params);
     }
@@ -128,7 +131,10 @@ class Coinpayments
             "notesToRecipient" => $invoice_params['notes_link']
         );
 
-        $params = $this->append_billing_data($params, $invoice_params['billing_data']);
+        if (isset($invoice_params['billing_data'])) {
+            $params = $this->append_billing_data($params, $invoice_params['billing_data']);
+        }
+
         $params = $this->appendInvoiceMetadata($params);
         return $this->sendRequest('POST', $action, $client_id, $params, $client_secret);
     }
@@ -236,7 +242,6 @@ class Coinpayments
      */
     protected function appendInvoiceMetadata($request_data)
     {
-
         $hostname = $this->getShopHostname();
 
         $request_data['metadata'] = array(
@@ -258,11 +263,6 @@ class Coinpayments
      */
     protected function createSignature($method, $api_url, $client_id, $date, $client_secret, $params)
     {
-
-        if (!empty($params)) {
-            $params = json_encode($params);
-        }
-
         $signature_data = array(
             chr(239),
             chr(187),
@@ -270,9 +270,12 @@ class Coinpayments
             $method,
             $api_url,
             $client_id,
-            $date->format('c'),
-            $params
+            $date->format('Y-m-d\TH:i:s')
         );
+
+        if (!empty($params)) {
+            $signature_data[] = json_encode($params);
+        }
 
         $signature_string = implode('', $signature_data);
 
@@ -320,9 +323,8 @@ class Coinpayments
             if ($client_secret) {
                 $signature = $this->createSignature($method, $api_url, $client_id, $date, $client_secret, $params);
                 $headers[] = 'X-CoinPayments-Client: ' . $client_id;
-                $headers[] = 'X-CoinPayments-Timestamp: ' . $date->format('c');
+                $headers[] = 'X-CoinPayments-Timestamp: ' . $date->format('Y-m-d\TH:i:s');
                 $headers[] = 'X-CoinPayments-Signature: ' . $signature;
-
             }
 
             $options[CURLOPT_HTTPHEADER] = $headers;
