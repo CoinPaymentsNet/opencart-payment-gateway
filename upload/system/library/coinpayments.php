@@ -95,8 +95,8 @@ class Coinpayments
             'invoiceId' => $invoice_params['invoice_id'],
             'amount' => array(
                 'currencyId' => $invoice_params['currency_id'],
-                "displayValue" => $invoice_params['display_value'],
-                'value' => $invoice_params['amount']
+                "displayValue" => (string)$invoice_params['display_value'],
+                'value' => (string)$invoice_params['amount']
             ),
             'notesToRecipient' => $invoice_params['notes_link']
         );
@@ -125,8 +125,8 @@ class Coinpayments
             "invoiceId" => $invoice_params['invoice_id'],
             "amount" => array(
                 "currencyId" => $invoice_params['currency_id'],
-                "displayValue" => $invoice_params['display_value'],
-                "value" => $invoice_params['amount'],
+                "displayValue" => (string)$invoice_params['display_value'],
+                "value" => (string)$invoice_params['amount'],
             ),
             "notesToRecipient" => $invoice_params['notes_link']
         );
