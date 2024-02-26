@@ -47,6 +47,19 @@
                         </td>
                     </tr>
                     <tr>
+                        <td><span class="required">*</span> <?php echo $entry_client_secret; ?></td>
+                        <td><input type="text" name="coinpayments_client_secret"
+                                   value="<?php echo $coinpayments_client_secret; ?>"/>
+                            <?php if ($error_client_secret) { ?>
+                            <span class="error"><?php echo $error_client_secret; ?></span>
+                            <?php } ?>
+                            <?php if ($error_invalid_credentials) { ?>
+                            <span class="error"><?php echo $error_invalid_credentials; ?></span>
+                            <?php } ?>
+                            <small class="form-text text-muted"><?php echo $help_client_secret ?></small>
+                        </td>
+                    </tr>
+                    <tr>
                         <td><?php echo $entry_webhooks; ?></td>
                         <td><select name="coinpayments_webhooks" id="input-webhooks">
                                 <?php if ($coinpayments_webhooks) { ?>
@@ -59,20 +72,6 @@
                             </select>
                             <small class="form-text text-muted"><?php echo $help_webhooks ?></small>
                         </td>
-                    </tr>
-                    <tr id="input-client-secret-wrap"
-                    <?php if ($coinpayments_webhooks != true){ ?>style="display: none;"<?php } ?>>
-                    <td><span class="required">*</span> <?php echo $entry_client_secret; ?></td>
-                    <td><input type="text" name="coinpayments_client_secret"
-                               value="<?php echo $coinpayments_client_secret; ?>"/>
-                        <?php if ($error_client_secret) { ?>
-                        <span class="error"><?php echo $error_client_secret; ?></span>
-                        <?php } ?>
-                        <?php if ($error_invalid_credentials) { ?>
-                        <span class="error"><?php echo $error_invalid_credentials; ?></span>
-                        <?php } ?>
-                        <small class="form-text text-muted"><?php echo $help_client_secret ?></small>
-                    </td>
                     </tr>
                     <tr>
                         <td><?php echo $entry_cancelled_status; ?></td>
@@ -137,19 +136,4 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    let webHooksSelector = document.getElementById('input-webhooks');
-    let clientSecretWrap = document.getElementById('input-client-secret-wrap');
-    if (webHooksSelector && clientSecretWrap) {
-        webHooksSelector.onchange = function (e, o) {
-            if (parseInt(e.target.value)) {
-                clientSecretWrap.style.display = 'table-row';
-            } else {
-                clientSecretWrap.style.display = 'none';
-            }
-        };
-    }
-</script>
 <?php echo $footer; ?> 
