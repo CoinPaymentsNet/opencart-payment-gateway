@@ -80,33 +80,14 @@ class Coinpayments
     }
 
     /**
-     * @param $client_id
-     * @param $invoice_params
+     * @param $clientId
+     * @param $clientSecret
      * @return bool|mixed
      * @throws Exception
      */
-    public function createSimpleInvoice($client_id, $invoice_params)
+    public function getInvoices($clientId, $clientSecret)
     {
-
-        $action = self::API_SIMPLE_INVOICE_ACTION;
-
-        $params = array(
-            'clientId' => $client_id,
-            'invoiceId' => $invoice_params['invoice_id'],
-            'amount' => array(
-                'currencyId' => $invoice_params['currency_id'],
-                "displayValue" => (string)$invoice_params['display_value'],
-                'value' => (string)$invoice_params['amount']
-            ),
-            'notesToRecipient' => $invoice_params['notes_link']
-        );
-
-        if (!empty($invoice_params['billing_data'])) {
-            $params = $this->append_billing_data($params, $invoice_params['billing_data']);
-        }
-
-        $params = $this->appendInvoiceMetadata($params);
-        return $this->sendRequest('POST', $action, $client_id, $params);
+        return $this->sendRequest('GET', self::API_MERCHANT_INVOICE_ACTION, $clientId, null, $clientSecret);
     }
 
     /**
