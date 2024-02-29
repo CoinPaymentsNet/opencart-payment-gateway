@@ -205,29 +205,21 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             $this->error['client_id'] = $this->language->get('error_client_id');
         }
 
-        if (!empty($this->request->post['payment_coinpayments_webhooks']) && empty($this->request->post['payment_coinpayments_client_secret'])) {
+        if (empty($this->request->post['payment_coinpayments_client_secret'])) {
             $this->error['client_secret'] = $this->language->get('error_client_secret');
         }
 
         if (empty($this->error)) {
-
             $this->load->model('extension/payment/coinpayments');
-
-            if (empty($this->request->post['payment_coinpayments_webhooks']) &&
-                !$this->model_extension_payment_coinpayments->validateInvoice($this->request->post['payment_coinpayments_client_id'])
-            ) {
-
+            $clientId = $this->request->post['payment_coinpayments_client_id'];
+            $clientSecret = $this->request->post['payment_coinpayments_client_secret'];
+            if ($this->model_extension_payment_coinpayments->validateInvoice($clientId, $clientSecret)) {
                 $this->error['invalid_credentials'] = $this->language->get('error_invalid_credentials');
+            }
 
-            } elseif (!empty($this->request->post['payment_coinpayments_webhooks']) &&
-                !$this->model_extension_payment_coinpayments->validateWebhook(
-                    $this->request->post['payment_coinpayments_client_id'],
-                    $this->request->post['payment_coinpayments_client_secret']
-                )
-            ) {
-
+            if (!empty($this->request->post['payment_coinpayments_webhooks']) &&
+                !$this->model_extension_payment_coinpayments->validateWebhook($clientId, $clientSecret)) {
                 $this->error['invalid_credentials'] = $this->language->get('error_invalid_credentials');
-
             }
         }
 

@@ -60,26 +60,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row" id="input-webhooks-wrap">
-                        <label class="col-sm-2 control-label col-form-label" for="input-webhooks">
-                            {{ entry_webhooks }}
-                        </label>
-                        <div class="col-sm-10">
-                            <select name="payment_coinpayments_webhooks" id="input-webhooks" class="form-control">
-                                {% if payment_coinpayments_webhooks %}
-                                    <option value="1" selected="selected">{{ text_enabled }}</option>
-                                    <option value="0">{{ text_disabled }}</option>
-                                {% else %}
-                                    <option value="1">{{ text_enabled }}</option>
-                                    <option value="0" selected="selected">{{ text_disabled }}</option>
-                                {% endif %}
-                            </select>
-                            <small class="form-text text-muted">{{ help_webhooks }}</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group row" id="input-client-secret-wrap"
-                         {% if payment_coinpayments_webhooks != true %}style="display: none;"{% endif %}>
+                    <div class="form-group row">
                         <label class="col-sm-2 control-label col-form-label" for="input-client-secret">
                             {{ entry_client_secret }}
                         </label>
@@ -95,6 +76,24 @@
                             {% if payment_coinpayments_webhooks and error_invalid_credentials %}
                                 <div class="text-danger">{{ error_invalid_credentials }}</div>
                             {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="input-webhooks-wrap">
+                        <label class="col-sm-2 control-label col-form-label" for="input-webhooks">
+                            {{ entry_webhooks }}
+                        </label>
+                        <div class="col-sm-10">
+                            <select name="payment_coinpayments_webhooks" id="input-webhooks" class="form-control">
+                                {% if payment_coinpayments_webhooks %}
+                                    <option value="1" selected="selected">{{ text_enabled }}</option>
+                                    <option value="0">{{ text_disabled }}</option>
+                                {% else %}
+                                    <option value="1">{{ text_enabled }}</option>
+                                    <option value="0" selected="selected">{{ text_disabled }}</option>
+                                {% endif %}
+                            </select>
+                            <small class="form-text text-muted">{{ help_webhooks }}</small>
                         </div>
                     </div>
 
@@ -225,20 +224,6 @@
                     </div>
                 </div>
             </div>
-
-            <script>
-                let webHooksSelector = document.getElementById('input-webhooks');
-                let clientSecretWrap = document.getElementById('input-client-secret-wrap');
-                if (webHooksSelector && clientSecretWrap) {
-                    webHooksSelector.onchange = function (e, o) {
-                        if (parseInt(e.target.value)) {
-                            clientSecretWrap.style.display = 'block';
-                        } else {
-                            clientSecretWrap.style.display = 'none';
-                        }
-                    };
-                }
-            </script>
         </form>
     </div>
 </div>
