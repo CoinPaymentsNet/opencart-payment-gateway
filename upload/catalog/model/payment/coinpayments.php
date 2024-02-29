@@ -79,14 +79,10 @@ class ModelPaymentCoinpayments extends Model
                 $order_info['order_id']),
         );
 
-        if ($this->config->get('coinpayments_webhooks')) {
-            $resp = $this->coinpayments->createMerchantInvoice($client_id, $client_secret, $invoice_params);
-            $invoice = array_shift($resp['invoices']);
-        } else {
-            $invoice = $this->coinpayments->createSimpleInvoice($client_id, $invoice_params);
-        }
+        $resp = $this->coinpayments->createMerchantInvoice($client_id, $client_secret, $invoice_params);
+        $invoices = isset($resp['invoices']) ? $resp['invoices'] : [];
 
-        return $invoice;
+        return array_shift($invoices);
     }
 
     public function checkDataSignature($signature, $content, $event)

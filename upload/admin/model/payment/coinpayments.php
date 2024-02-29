@@ -42,23 +42,16 @@ class ModelPaymentCoinpayments extends Model
 
 
     /**
-     * @param $client_id
+     * @param $clientId
+     * @param $clientSecret
      * @return bool
      * @throws Exception
      */
-    public function validateInvoice($client_id)
+    public function validateInvoice($clientId, $clientSecret)
     {
-        $invoiceParams = array(
-            'currency_id' => 5057,
-            'invoice_id' => 'Validate invoice',
-            'amount' => 1,
-            'display_value' => '0.01',
-            'notes_link' => '',
-        );
+        $invoices = $this->coinpayments->getInvoices($clientId, $clientSecret);
 
-        $invoice = $this->coinpayments->createSimpleInvoice($client_id, $invoiceParams);
-
-        return !empty($invoice['id']);
+        return is_array($invoices) && isset($invoices['items']);
     }
 
     /**
