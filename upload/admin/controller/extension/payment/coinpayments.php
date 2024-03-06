@@ -213,7 +213,7 @@ class ControllerExtensionPaymentCoinpayments extends Controller
             $this->load->model('extension/payment/coinpayments');
             $clientId = $this->request->post['payment_coinpayments_client_id'];
             $clientSecret = $this->request->post['payment_coinpayments_client_secret'];
-            if ($this->model_extension_payment_coinpayments->validateInvoice($clientId, $clientSecret)) {
+            if (!$this->model_extension_payment_coinpayments->validateInvoice($clientId, $clientSecret)) {
                 $this->error['invalid_credentials'] = $this->language->get('error_invalid_credentials');
             }
 
