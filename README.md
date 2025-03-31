@@ -1,3 +1,5 @@
+> NOTICE: Migrated to [CoinPaymentsNet/plugin-opencart](https://github.com/CoinPaymentsNet/plugin-opencart).
+
 OpenCart Payment Gateway plugin for CoinPayments.net
 ========================
 
